@@ -15,11 +15,11 @@ In this work, we present **3DGen-Bench**, the first comprehensive human preferen
 
 
 ## 3DGen-Score
-We train **3DGen-Score** from our dataset, and achieve outstanding human coherence.
-
+<!-- We train **3DGen-Score** from our dataset, and achieve outstanding human coherence. -->
 <!-- ![table](src/table_pair_align.jpg) -->
 
 ### Install
+The environment requires **Python>=3.9**, **Cuda>=11.3**
 ```
     conda create -n 3dgen python==3.9
     conda activate 3dgen
