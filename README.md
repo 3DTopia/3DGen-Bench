@@ -27,17 +27,23 @@ We train **3DGen-Score** from our dataset, and achieve outstanding human coheren
 ```
 
 ### Inference
-- **Step1** make `./checkpoint` dir and download our pretrained weights from [here](https://huggingface.co/3DGen/3dgen-score-mvclip-v1)
-- **Step2** run `python demo.py`
+make `./checkpoint` dir and download our pretrained weights from [here](https://huggingface.co/3DGen/3dgen-score-mvclip-v1)
+```
+python demo.py
+```
 
 ### Train
 - **Step1** make `./data` dir and download preference data from [here](https://huggingface.co/datasets/3DGen/3DGen-Bench).
-    - `data\gallery`: unzip `images_prompts.zip` and move into `data\gallery\rgba`
-    - `data\preference_annotation`: human preference data in `json` format, splited into ["train", "valid", "test"]
-    - `data\surrounding_views`: 4-view concated images of 3D assets
-    - `data\objects`: `.ply` files of 3D assets(Unused here)
+    - `data/gallery`: unzip `images_prompts.zip` and move into `data/gallery/rgba`
+    - `data/preference_annotation`: human preference data in `json` format, splited into ["train", "valid", "test"]
+    - `data/surrounding_views`: 4-view concated images of 3D assets
+    - `data/objects`: `.ply` files of 3D assets(Unused here)
 - **Step2** "two-stage" training strategy 
     - *Stage1 Contrastive Loss* 
-    ```accelerate launch --dynamo_backend no --gpu_ids all --num_processes 1  --num_machines 1 --use_deepspeed trainer/scripts/train.py +experiment=clip_h_neg```
+    ```
+        accelerate launch --dynamo_backend no --gpu_ids all --num_processes 1  --num_machines 1 --use_deepspeed trainer/scripts/train.py +experiment=clip_h_neg
+    ```
     - *Stage2 Evaluation Loss* 
-    ```accelerate launch --dynamo_backend no --gpu_ids all --num_processes 1  --num_machines 1 --use_deepspeed trainer/scripts/train.py +experiment=clip_h_2```
+    ```
+        accelerate launch --dynamo_backend no --gpu_ids all --num_processes 1  --num_machines 1 --use_deepspeed trainer/scripts/train.py +experiment=clip_h_2
+    ```
