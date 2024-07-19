@@ -1,0 +1,20 @@
+# @package _global_
+
+accelerator:
+  project_name: "Score-clean"
+  metric_name: "loss"
+  metric_mode: MetricMode.MIN
+  deepspeed:
+    optimizer:
+      params:
+        lr: 3e-5
+
+output_dir: outputs/${accelerator.project_name}/eval_fron_stage2
+
+dataset:
+  records_dir: "/mnt/petrelfs/zhangyuhan/data/evaluation/records/tag/clean/splits"
+  train_split_name: "train_valid"
+  batch_size: 32
+
+model:
+  pretrained_mvclip_model_name_or_path: "/mnt/petrelfs/zhangyuhan/workspace/Pick3D/outputs/Multi-CLIP_ViT_H_14-clean/from_con_image/stage2_eval_from_latest/checkpoint-final"

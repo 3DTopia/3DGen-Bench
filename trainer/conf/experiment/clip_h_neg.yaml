@@ -1,0 +1,33 @@
+# @package _global_
+
+defaults:
+  - /experiment/clip
+
+accelerator:
+  project_name: "Multi-CLIP_ViT_H_14-clean"
+  train_from_scratch: true
+  metric_name: "loss"
+  metric_mode: MetricMode.MIN
+  validate_steps: 250
+  save_steps: 250
+  max_steps: 5000
+  deepspeed:
+    optimizer:
+      params:
+        lr: 1e-4
+    scheduler:
+      params:
+        warmup_min_lr: 3e-6
+        warmup_num_steps: 500
+
+criterion:
+  in_batch_negatives: true
+
+output_dir: outputs/${accelerator.project_name}/from_con_image/stage1_neg
+
+dataset:
+  records_dir: "/mnt/petrelfs/zhangyuhan/data/evaluation/records/battle/clean/splits"
+  train_split_name: "train_valid"
+
+model:
+  pretrained_clip_model_name_or_path: laion/CLIP-ViT-H-14-laion2B-s32B-b79K

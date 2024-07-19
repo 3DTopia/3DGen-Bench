@@ -1,0 +1,9 @@
+slurm:
+  job_name: clip
+  partition: 3dobject_aigc_light
+  n_processes: 8
+  n_nodes: 1
+  time_limit: 180
+  exclude: ""
+  cmd: ???
+  account: null

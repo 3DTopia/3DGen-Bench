@@ -1,0 +1,11 @@
+defaults:
+  - score_config
+  - _self_
+
+hydra:
+  run:
+    dir: .
+
+debug:
+  activate: false
+  port: 7900
