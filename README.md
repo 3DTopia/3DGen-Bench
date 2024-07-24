@@ -8,8 +8,8 @@ In this work, we present **3DGen-Bench**, the first comprehensive human preferen
 
 
 ## Data
-- We carefully design 1,100 prompts(510 for text and 510 for image), select 19 generative models(9 for text-to-3D and 13 for image-to-3D), and obtain 11,220 3D assets finally.
-- We build **3DGen-Arena**, a public benckmark platform for 3D generative models. You can contribute votes and find learderboard from [here](https://huggingface.co/spaces/ZhangYuhan/3DGen-Arena)
+- We carefully design 1,020 prompts(510 for text and 510 for image), select 19 generative models(9 for text-to-3D and 13 for image-to-3D), and obtain 11,220 3D assets finally.
+- We build **3DGen-Arena**, a public benckmark platform for 3D generative models. You can contribute votes and check learderboard from [here](https://huggingface.co/spaces/ZhangYuhan/3DGen-Arena)
 - We released full prompts, 3D assets and human annotations on Huggingface, you are free to download from [here](https://huggingface.co/datasets/3DGen/3DGen-Bench). 
 
 
@@ -33,12 +33,25 @@ python demo.py
 ```
 
 ### Train
-- **Step1** make `./data` dir and download preference data from [here](https://huggingface.co/datasets/3DGen/3DGen-Bench).
+- **Step1** Download data
+
+    make `./data` dir and download preference data from [here](https://huggingface.co/datasets/3DGen/3DGen-Bench).
     - `data/gallery`: unzip `images_prompts.zip` and move into `data/gallery/rgba`
     - `data/preference_annotation`: human preference data in `json` format, splited into ["train", "valid", "test"]
-    - `data/surrounding_views`: 4-view concated images of 3D assets
+    - `data/surrounding_views`: 360 degree surrounding videos of 3D assets in 3 formats
     - `data/objects`: `.ply` files of 3D assets(Unused here)
-- **Step2** "two-stage" training strategy 
+
+- **Step2** Data preprocess
+    - split `.gif` into frames (replace \<xx\> as needed)
+    ```
+        python preprocess/split_gif.py --mode <xx> --task <xx> --method <xx>
+    ```
+    - concate 4 views
+    ```
+        python preprocess/con_image.py --mode <xx> --task <xx> --method <xx>
+    ```
+
+- **Step3** "Two-stage" training strategy 
     - *Stage1 Contrastive Loss* 
     ```
         accelerate launch --dynamo_backend no --gpu_ids all --num_processes 1  --num_machines 1 --use_deepspeed trainer/scripts/train.py +experiment=clip_h_neg
