@@ -179,7 +179,7 @@ class MVDataset(BaseDataset):
             self.cfg.rgb_pixels_1_column_name: rgb_pixel_1_values,
             self.cfg.label_0_column_name: torch.tensor(example[self.cfg.label_0_column_name])[None],
             self.cfg.label_1_column_name: torch.tensor(example[self.cfg.label_1_column_name])[None],
-            self.cfg.num_examples_per_prompt_column_name: torch.tensor(example[self.cfg.num_examples_per_prompt_column_name])[None],
+            # self.cfg.num_examples_per_prompt_column_name: torch.tensor(example[self.cfg.num_examples_per_prompt_column_name])[None],
         }
         return item
 
