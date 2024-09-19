@@ -1,6 +1,6 @@
 # 3DGen-Bench: Comprehensive Benchmark Suite for 3D Generative Models
 
-### [Project page]() | [Paper]() | [Video]() | [Arena](https://huggingface.co/spaces/ZhangYuhan/3DGen-Arena) | [Data](https://huggingface.co/datasets/3DGen/3DGen-Bench)
+### [Project page](https://zyh482.github.io/3DGen-Bench/) | [Paper]() | [Video]() | [Arena](https://huggingface.co/spaces/ZhangYuhan/3DGen-Arena) | [Data](https://huggingface.co/datasets/3DGen/3DGen-Bench)
 
 In this work, we present **3DGen-Bench**, the first comprehensive human preference dataset for 3D models. For efficient data collection, we build the **3DGen-Arena**, a public voting platform in a pairwise battle manner. Then, we perform a comprehensive evaluation for numerous 3D generative models, and train an automatic scoring model **3DGen-Score**, which aligns well with human judgment.
 
@@ -23,6 +23,7 @@ The environment requires **Python>=3.9**, **Cuda>=11.3**
 ```
     conda create -n 3dgen python==3.9
     conda activate 3dgen
+    pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
     pip install -r requirements.txt
 ```
 
@@ -50,6 +51,12 @@ python demo.py
     ```
         python preprocess/con_image.py --mode <xx> --task <xx> --method <xx>
     ```
+
+    > Parameters:
+
+    - `mode`: rendering mode, choices = ["rgb", "normal", "geo"]
+    - `task`: generative task, choices = ['text2shape', 'image2shape']
+    - `method`: supported 3D generative model
 
 - **Step3** "Two-stage" training strategy 
     - *Stage1 Contrastive Loss* 
