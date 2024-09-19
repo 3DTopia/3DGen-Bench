@@ -127,6 +127,7 @@ class BaseAccelerator(abc.ABC):
     def load_state_if_needed(self, model=None):
         if not self.cfg.resume_from_name_or_path and not self.cfg.resume_from_latest:
             return
+        ckpt_path = None
         if self.cfg.resume_from_name_or_path:
             ckpt_path = self.cfg.resume_from_name_or_path
         if self.cfg.resume_from_latest and self.get_latest_checkpoint():
